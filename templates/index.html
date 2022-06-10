@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../static/css/index.css"/>
+   <link href="../static/node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+   <title>Document</title>
+</head>
+<body>
+    <form method="post">
+    <div class="checkboxes">
+        <ul class="ks-cboxtags">
+          {%for Genre in Genres %}
+            <li><input type="checkbox" id="checkbox{{Genre}}" name="{{Genre}}" value="{{Genre}}"><label for="checkbox{{Genre}}">{{Genre}}</label></li>
+           {%endfor%}
+          <li><input type="submit" id="apply-button" value="Apply"></li>
+        </ul>
+    </div>
+    <div class="search-box">
+        <button class="btn-search" type="submit"><i class="fas fa-search"></i></button>
+        <input type="text" name="movie-search" class="input-search" placeholder="Type to Search...">
+    </div>
+    </form>
+    <div class="container">
+        {%if nMovies > 0 %}
+        {%for i in range(0, nMovies) %}
+        <div class="movie-card">
+        <div class="movie-header" style="background:url(https://img.omdbapi.com/?apikey=df97dc6a&i=tt{{movieList[i][3]}});background-size:cover">
+            <div class="header-icon-container">
+            <a href="#">
+                <i class="material-icons header-icon">&#xE037;</i>
+            </a>
+            </div>
+        </div><!--movie-header-->
+        <div class="movie-content">
+            <div class="movie-content-header">
+            <a href="./rate?movieID={{movieList[i][0]}}&movieName={{movieList[i][1]}}">
+                <h3 class="movie-title">{{movieList[i][1]}}</h3>
+            </a>
+            <div class="imax-logo"></div>
+            </div>
+            <div class="movie-info">
+            <div class="info-section">
+                <label>Genre</label>
+                <span>{{movieList[i][2]}}</span>
+            </div>
+            <div class="info-section">
+                <label>Your Rating</label>
+                <span>{{movieList[i][4]}}</span>
+            </div>
+            <div class="info-section">
+                <label>Overall Rating</label>
+                <span>{{movieList[i][5]}}</span>
+            </div>
+            </div>
+        </div><!--movie-content-->
+        </div><!--movie-card-->
+        {%endfor%}
+        {% else %}
+            <h1 style="color:white;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                There were no results for your search. Try broadening your criteria.</h1>
+        {% endif %}
+    </div><!--container-->  
+
+    
+</body>
+</html>
